@@ -4,9 +4,6 @@ package eor;
 // https://leetcode.cn/problems/maximum-lcci/description/
 //找出两个数字a和b中最大的那一个。不得使用if-else或其他比较运算符。
 public class Maximum {
-
-
-
     //x = a-b 如果x>0最高位为0，否则最高位为1
     //获取符号位就行了
     public static int maximum(int a, int b) {
