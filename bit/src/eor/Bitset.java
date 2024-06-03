@@ -1,26 +1,73 @@
-package class032;
+package eor;
 
-// 位图的实现
-// Bitset是一种能以紧凑形式存储位的数据结构
-// Bitset(int n) : 初始化n个位，所有位都是0
-// void fix(int i) : 将下标i的位上的值更新为1
-// void unfix(int i) : 将下标i的位上的值更新为0
-// void flip() : 翻转所有位的值
-// boolean all() : 是否所有位都是1
-// boolean one() : 是否至少有一位是1
-// int count() : 返回所有位中1的数量
-// String toString() : 返回所有位的状态
-public class Code02_DesignBitsetTest {
+import java.util.Arrays;
 
-	// 测试链接 : https://leetcode-cn.com/problems/design-bitset/
-	class Bitset {
+//https://leetcode-cn.com/problems/design-bitset/
+// 实现一个位图
+public class Bitset {
+	int count1=0;
+	int[] bitMap,mask;
+	int size;
+	public Bitset(int size) {
+		this.size=size;
+		bitMap = new int[size];
+		mask = new int[size];
+		Arrays.fill(mask,1);
+	}
+
+	public void fix(int idx) {
+		if(bitMap[idx]==0){
+			bitMap[idx]=1;
+			mask[idx]=0;
+			count1++;
+		}
+	}
+
+	public void unfix(int idx) {
+		if(bitMap[idx]==1){
+			bitMap[idx]=0;
+			mask[idx]=1;
+			count1--;
+
+		}
+	}
+
+	public void flip() {
+		int[] temp = bitMap;
+		bitMap = mask;
+		mask = temp;
+		count1 = size-count1;
+	}
+
+	public boolean all() {
+		return count1==size;
+	}
+	public boolean one() {
+		return count1>=1;
+	}
+	public int count() {
+		return count1;
+	}
+	public String toString() {
+		StringBuilder res = new StringBuilder();
+		for(int i=0;i<size;i++){
+			res.append(bitMap[i]);
+		}
+		return res.toString();
+	}
+}
+
+
+//左神解法
+class Bitset2 {
 		private int[] set;
 		private final int size;
 		private int zeros;
 		private int ones;
 		private boolean reverse;
 
-		public Bitset(int n) {
+		public Bitset2(int n) {
+			// a/b向上取整 (a+(b-1))/b
 			set = new int[(n + 31) / 32];
 			size = n;
 			zeros = n;
@@ -104,4 +151,3 @@ public class Code02_DesignBitsetTest {
 			return builder.toString();
 		}
 	}
-}
